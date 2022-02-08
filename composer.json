@@ -1,6 +1,6 @@
 {
-    "name": "Trois/Recaptcha",
-    "description": "Trois/Recaptcha plugin for CakePHP",
+    "name": "3xw/cakephp-recaptcha",
+    "description": "3xw/cakephp-recaptcha plugin for CakePHP",
     "type": "cakephp-plugin",
     "license": "MIT",
     "require": {
