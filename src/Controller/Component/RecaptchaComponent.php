@@ -10,6 +10,13 @@ use ReCaptcha\ReCaptcha;
 class RecaptchaComponent extends Component
 {
 
+  protected $_defaultConfig = [
+    'ScoreThreshold' => 0.5,
+    'ExpectedHostname' => null,
+    'ExpectedAction' => null,
+    'ChallengeTimeout' => null
+  ];
+
   public function getErrors()
   {
     return $this->errors;
@@ -35,11 +42,10 @@ class RecaptchaComponent extends Component
       return false;
     }
 
-    $resp = (new ReCaptcha(Configure::read('Trois/Recaptcha.secret')))
-    //->setExpectedHostname('recaptcha-demo.appspot.com')
-    //->setExpectedAction('homepage')
-    ->setScoreThreshold(0.5)
-    ->verify($gRecaptchaResponse/*, $remoteIp*/);
+    $recaptcha = new ReCaptcha(Configure::read('Trois/Recaptcha.secret'));
+    foreach($this->getConfig() as $key => $value) if($value) $recaptcha->{"set$key"}($value);
+
+    $resp = $recaptcha->verify($gRecaptchaResponse, $this->getController()->getRequest()->clientIp());
 
     // handle erros
     if(!$resp->isSuccess())

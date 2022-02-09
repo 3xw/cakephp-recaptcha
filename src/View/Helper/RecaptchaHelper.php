@@ -20,6 +20,7 @@ class RecaptchaHelper extends Helper
 
   public function display()
   {
-  echo $this->getView()->Form->input('g-recaptcha-response',['class' => 'g-recaptcha-response','type' => 'hidden']);
+    echo $this->getView()->Form->unlockField('g-recaptcha-response');
+    echo $this->getView()->Form->input('g-recaptcha-response',['class' => 'g-recaptcha-response','type' => 'hidden']);
   }
 }
